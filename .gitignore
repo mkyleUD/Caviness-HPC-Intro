@@ -3,6 +3,7 @@
 .DS_Store
 .ipynb_checkpoints
 .sass-cache
+.jekyll-cache
 __pycache__
 _site
 files/*.gtf
@@ -10,4 +11,7 @@ files/*.fb
 files/*.fastq
 files/*.tsv
 scratch/
+Gemfile.lock
+Gemfile
+.*history
 
