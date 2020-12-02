@@ -1,18 +1,22 @@
 ---
-title: "Working on a remote HPC system"
+title: "Working remotely on the Caviness Cluster"
 teaching: 25
 exercises: 10
 questions:
 - "What is an HPC system?"
-- "How does an HPC system work?"
-- "How do I log on to a remote HPC system?"
+- "What are now nodes and what types of nodes does Caviness have?"
+- "How do I log on to the Caviness Cluster?"
 objectives:
 - "Connect to a remote HPC system."
+- "The differences between Caviness and other HPC clusters."
 - "Understand the general HPC system architecture."
 keypoints:
+- "Caviness is like other HPC Systems but does  use a custom program (VALET) for setting up the 
+   computing environment."
 - "An HPC system is a set of networked machines."
 - "HPC systems typically provides login nodes and a set of worker nodes."
-- "The resources found on independent (worker) nodes can vary in volume and type (amount of RAM, processor architecture, availability of network mounted file systems, etc.)."
+- "The resources found on independent (worker) nodes can vary in volume and type (amount of RAM, processor architecture, availability of network mounted 
+   file systems, etc.)."
 - "Files saved on one node are available on all nodes."
 ---
 
@@ -28,6 +32,18 @@ machines serving websites, providing shared storage, providing webservices (such
 media platforms), as well as more traditional "compute" resources. An *HPC system* on the other hand,
 is a term used to describe a network of computers. The computers in a cluster typically share a common
 purpose, and are used to accomplish tasks that might otherwise be too big for any one computer.
+
+## Caviness Cluster compared to the other clusters at UD and other HPC systems.
+
+The workload management software on Caviness is slurm. This is a common workload management 
+software for HPC systems but it is new to UD. The prior two community clusters used grid 
+engine for their workload manager. For setting up your computing environment Caviness will 
+continue to use VALET, just as Mills and Farber have used. VALET is a recursive acronym for VALET
+Automates Linux Environment Tasks – is an alternative that strives to be as simple as possible to
+configure and to use. VALET is unique to UD, if you have used another HPC system you might be 
+familiar with Environment Modules Package, more commonly known as modules. VALET and modules 
+essentially perform the same services, but each have different syntax in doing so. More details on VALET 
+will be coming later on in the course.
 
 ## Logging in
 

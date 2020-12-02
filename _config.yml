@@ -11,7 +11,7 @@ carpentry: "swc"
 
 # Overall title for pages.
 #title: "Introduction to High-Performance Computing"
-title: Introduction to Caviness HPC and Unix Basics
+title: "Introduction to High-Performance Computing on Caviness"
 # Life cycle stage of the lesson
 # possible values: "pre-alpha", "alpha", "beta", "stable"
 life_cycle: "pre-alpha"
@@ -29,7 +29,7 @@ kind: "lesson"
 repository: <USERNAME>/<PROJECT>
 
 # Email address, no mailto:
-email: "team@carpentries.org"
+email: "mkyle@udel.edu"
 
 # Sites.
 amy_site: "https://amy.software-carpentry.org/workshops"
@@ -74,25 +74,54 @@ instructor_post_survey: "https://www.surveymonkey.com/r/instructor_training_post
 #   and:
 #     cp -r _extras/snippet_library/EPCC_Cirrus_pbs/* _includes/snippets
 #
-host_name: "Graham"
-host_login: "graham.computecanada.ca"
-host_location: "University of Waterloo"
-host_homedir: "/home"
-host_prompt: "[yourUsername@gra-login1 ~]$"
-local_prompt: "[user@laptop ~]$"
+# host_name: "Graham"
+# host_login: "graham.computecanada.ca"
+# host_location: "University of Waterloo"
+# host_homedir: "/home"
+# host_prompt: "[yourUsername@gra-login1 ~]$"
+# local_prompt: "[user@laptop ~]$"
+# sched_name: "SLURM"
+# sched_submit: "sbatch"
+# sched_submit_options: ""
+# sched_status: "squeue"
+# sched_flag_user: "-u yourUsername"
+# sched_del: "scancel"
+# sched_interactive: "srun"
+# sched_flag_interactive: ""
+# sched_info: "sinfo"
+# sched_comment: "#SBATCH"
+# sched_flag_name: "-J"
+# sched_hist: "sacct -u yourUsername"
+# sched_flag_histdetail: "-l -j"
+#######################################################
+#UD Custom Variables
+
+host_name: "Caviness"
+host_id: "traine"
+host_login: "caviness.hpc.udel.edu"
+host_location: "University of Delaware"
+host_homedir: "/home/1201"
+host_prompt: "[traine@login00 ~]$ "
+host_workgroup_prompt: "[(it_css:traine)@login00 ~]$ "
+local_prompt: "user@laptop: ~ $ "
 sched_name: "SLURM"
 sched_submit: "sbatch"
 sched_submit_options: ""
 sched_status: "squeue"
-sched_flag_user: "-u yourUsername"
+sched_flag_user: "-u traine"
+sched_id: "traine@r00n56"
 sched_del: "scancel"
 sched_interactive: "srun"
 sched_flag_interactive: ""
 sched_info: "sinfo"
 sched_comment: "#SBATCH"
 sched_flag_name: "-J"
-sched_hist: "sacct -u yourUsername"
+sched_hist: "sacct -u traine"
 sched_flag_histdetail: "-l -j"
+
+
+
+
 
 # Interactive queue names, one or more as a list
 workshop_interactive_queues:
@@ -139,4 +168,6 @@ exclude:
 highlighter: rouge
 
 # Costum host location
-host: 192.168.123.25
+host: 192.168.123.114
+
+theme: jekyll-theme-cayman

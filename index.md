@@ -18,12 +18,13 @@ By the end of this workshop, students will know how to:
 > ## Note
 > 
 > - This is the draft HPC Carpentry release. Comments and feedback are welcome.
-> - Link to [hpc-shell](https://hpc-carpentry.github.io/hpc-shell/) when that is complete.
+> - Link to [hpc-intro](https://mkyleud.github.io/Caviness-HPC-Intro/) when this is complete.
 {: .callout}
 
 > ## Prerequisites
 >
 > Command line experience is necessary for this lesson. We recommend the participants to go through
-> https://swcarpentry.github.io/shell-novice/ if new to the terminal.
+> the [Introduction to the Unix Shell on UD\'s Caviness Cluster](https://mkyleud.github.io/Caviness-HPC-Shell/)
+> if new to the terminal.
 {: .prereq}
 
