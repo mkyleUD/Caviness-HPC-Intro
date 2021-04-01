@@ -1,6 +1,8 @@
 #!/bin/bash
-#SBATCH -t 0:0:30
+#SBATCH -t 01:00
 
-echo 'This script is running on:'
-hostname
-sleep 120
+echo "This script is running on: ${HOSTNAME}"
+
+sleep 500
+
+echo "This line should not be seen"

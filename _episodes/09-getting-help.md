@@ -1,25 +1,22 @@
 ---
-title: "Using shared resources responsibly"
-teaching: 15
-exercises: 5
+title: "Getting Help"
+teaching: 5
+exercises: 0
 questions:
-- "How can I be a responsible user?"
-- "How can I protect my data?"
-- "How can I best get large amounts of data off an HPC system?"
+- "Do I need help?"
+- "How do I get help?"
+- "How long will it take me to get my answer?"
 objectives:
-- "Learn how to be a considerate shared system citizen."
-- "Understand how to protect your critical data."
-- "Appreciate the challenges with transferring large amounts of data off HPC systems."
-- "Understand how to convert many files to a single archive file using tar."
+- "Learn how find answers to your questions on your own."
+- "Where to go when you need help."
+- "How you can help others"
 keypoints:
-- "Be careful how you use the login node."
-- "Your data on the system is your responsibility."
-- "Plan and test large data transfers."
-- "It is often best to convert many files to a single archive file before transferring."
-- "Again, don't run stuff on the login node."
-- "Don't be a bad person and run stuff on the login node."
----
+- "Check wiki and other resourse before asking for help."
+- "Be patient when asking to help."
+- "If you can help other please due so."
 
+---
+# THIS WHOLE PAGE NEEDS TO BE CHANGED. IT IS A COPY OF ANOTHER EPOSIDE!!!!
 One of the major differences between using remote HPC resources and your own system 
 (e.g. your laptop) is that they are a shared resource. How many users the resource is
 shared between at any one time varies from system to system but it is unlikely you

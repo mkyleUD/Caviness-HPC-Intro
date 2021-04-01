@@ -2,11 +2,13 @@
 `hostname` command with `srun`. (We can cancel an `srun` job with `Ctrl-c`.)
 
 ```
-{{ site.host_prompt }} srun hostname
+{{ site.host_workgroup_prompt }} srun hostname
 ```
 {: .bash}
 ```
-gra752
+srun: job 10699891 queued and waiting for resources
+srun: job 10699891 has been allocated resources
+r00n54.localdomain.hpc.udel.edu
 ```
 {: .output}
 
@@ -15,7 +17,7 @@ script, these options are specified on the command-line when starting a job. To 
 uses 2 CPUs for instance, we could use the following command:
 
 ```
-{{ site.host_prompt }} srun -c 2 echo "This job will use 2 CPUs."
+{{ site.host_workgroup_prompt }} srun -c 2 echo "This job will use 2 CPUs."
 ```
 {: .bash}
 ```
@@ -29,12 +31,34 @@ Typically, the resulting shell environment will be the same as that for `sbatch`
 
 Sometimes, you will need a lot of resource for interactive use. Perhaps it's our first time running
 an analysis or we are attempting to debug something that went wrong with a previous job.
-Fortunately, SLURM makes it easy to start an interactive job with `srun`:
+Fortunately, SLURM makes it easy to start an interactive job with `salloc`:
 
 ```
-{{ site.host_prompt }} srun --pty bash
+{{ site.host_workgroup_prompt }} salloc
 ```
-{: .bash}
+{: .language-bash}
+
+```
+salloc: Pending job allocation 10699898
+salloc: job 10699898 queued and waiting for resources
+salloc: job 10699898 has been allocated resources
+salloc: Granted job allocation 10699898
+salloc: Waiting for resource configuration
+salloc: Nodes r00n56 are ready for job
+
+```
+{: .output}
+You should be presented with a bash prompt. Note that the prompt will likely change to reflect your
+new location, in this case the compute node we are logged on. You can also verify this with
+`hostname`.
+```
+{{site.sched_prompt}} hostname
+```
+{: .language-bash}
+```
+r00n56.localdomain.hpc.udel.edu
+```
+{: .output}
 
 You should be presented with a bash prompt. Note that the prompt will likely change to reflect your
 new location, in this case the compute node we are logged on. You can also verify this with
@@ -44,16 +68,80 @@ new location, in this case the compute node we are logged on. You can also verif
 > 
 > To see graphical output inside your jobs, you need to use X11 forwarding. To connect
 > with this feature enabled, use the `-Y` option when you login with `ssh` with the command
-> `ssh -Y username@host`.
+> `ssh -Y username@host`. Windows users will need to follow the directions in the 
+> [setup page]({{site.url}}{{site.baseurl}}/setup).
 > 
-> To demonstrate what happens when you create a graphics window on the remote node, use the `xeyes`
-> command. A relatively adorable pair of eyes should pop up (press `Ctrl-c` to stop). 
+> To demonstrate what happens when you create a graphics  window on the remote node we will download
+> a Univeristy of Delaware logo image on the {{site.hostname}} in and view it locally with a program called 
+> imagemagick. Then we will request an interactive compute node and test to make sure we have setup X11
+> forwarding correctly.  
+>
 > If you are using a Mac, you must have installed XQuartz (and restarted
 > your computer) for this to work.
+> If you are using a Windows Machine you will need to install x-ming (and restart your computer)
+> for this to work PuTTY.
 >
-> If your cluster has the [slurm-spank-x11](https://github.com/hautreux/slurm-spank-x11) plugin
-> installed, you can ensure X11 forwarding within interactive jobs by using the `--x11` option 
-> for `srun` with the command `srun --x11 --pty bash`.
+> ```
+> {{site.host_prompt}} wget https://cas.nss.udel.edu/themes/secureheader/headerbluetext.png?v=2 -O ud_image.png
+> {{site.host_prompt}} display ud_image.png
+> ```
+> {: .language-bash}
+> 
+> ```
+> --2020-12-07 15:04:45--  https://cas.nss.udel.edu/themes/secureheader/headerbluetext.png?v=2
+> Resolving cas.nss.udel.edu (cas.nss.udel.edu)... 128.175.176.8
+> Connecting to cas.nss.udel.edu (cas.nss.udel.edu)|128.175.176.8|:443... connected.
+> HTTP request sent, awaiting response... 200 OK
+> Length: 26604 (26K) [image/png]
+> Saving to: ‘ud_image.png’
+> 
+> 100%[==================================================>] 26,604      --.-K/s   in 0.005s
+> 
+> 2020-12-07 15:04:45 (4.74 MB/s) - ‘ud_image.png’ saved [26604/26604]
+>
+> ```
+> {: .output}
+> 
+> The downloaded image will open on your desktop. To close you can with hit <kbd>Ctrl</kbd> + <kbd>C</kbd>
+> or by clicking the "X" button on the images window.
+> 
+> To check if you have X11 forwarding working correctly from a computer node run the following steps. 
+> ```
+> {{site.host_workgroup_prompt}} salloc --x11 --partition=_workgroup_
+> {{site.sched_prompt}} xdpyinfo
+> ```
+> {: .language-bash}
+> ```
+> salloc: Granted job allocation 10714363
+> salloc: Waiting for resource configuration
+> salloc: Nodes r00n56 are ready for job
+> slurmstepd: error: Unable to create TMPDIR [/tmp/job_10714353/step_0.0]: No such file or directory
+> slurmstepd: error: Setting TMPDIR to /tmp
+> 
+> ... Skipped Lines (Lots and Lots of Skipped Lines) ...
+> 
+>   visual:
+>     visual id:    0xcd
+>     class:    TrueColor
+>     depth:    24 planes
+>     available colormap entries:    256 per subfield
+>     red, green, blue masks:    0xff0000, 0xff00, 0xff
+>     significant bits in color specification:    8 bits
+>   visual:
+>     visual id:    0x45
+>     class:    TrueColor
+>     depth:    32 planes
+>     available colormap entries:    256 per subfield
+>     red, green, blue masks:    0xff0000, 0xff00, 0xff
+>     significant bits in color specification:    8 bits
+>
+> ```
+> {: .output}
+>
+> That shows that X11 forwarding is set up correctly. You can now open an software like Gaussian
+> in a GUI from the remote compute node on your local machine.
+>
+> When you are done with the interactive job, type `exit` to quit your session. 
 {: .challenge}
 
-When you are done with the interactive job, type `exit` to quit your session.
+

@@ -51,28 +51,21 @@ Go ahead and log in to the cluster: {{ site.host_name }} at {{ site.host_locatio
 ```
 {{ site.local_prompt }} ssh yourUsername@{{ site.host_login }}
 ```
-{: .bash}
+{: .language-bash}
 
 Remember to replace `yourUsername` with the username supplied by the instructors. You will be asked for
 your password. But watch out, the characters you type are not displayed on the screen.
 
 You are logging in using a program known as the secure shell or `ssh`. 
 This establishes a temporary encrypted connection between your laptop and `{{ site.host_login }}`.
-The word before the `@` symbol, e.g. `yourUsername` here, is the user account name that Lola has access 
-permissions for on the cluster. 
 
 > ## Where do I get this `ssh` from ?
 > On Linux and/or macOS, the `ssh` command line utility is almost always pre-installed. Open a
 > terminal and type `ssh --help` to check if that is the case. 
 > 
-> At the time of writing, the openssh support on Microsoft is still very 
-> [recent](https://blogs.msdn.microsoft.com/powershell/2017/12/15/using-the-openssh-beta-in-windows-10-fall-creators-update-and-windows-server-1709/). 
-> Alternatives to this are [putty](http://www.putty.org), 
-> [bitvise SSH](https://www.bitvise.com/ssh-client-download), 
-> [mRemoteNG](https://mremoteng.org/) or [MobaXterm](https://mobaxterm.mobatek.net/). 
-> Download it, install it and open the GUI. The GUI asks for your user name and the destination
-> address or IP of the computer you want to connect to. Once provided, you will be queried for 
-> your password just like in the example above.
+> Currently Microsoft is working to add openssh support on their command prompt. However this is still
+> not the default. For now we suggest that windows users install PuTTY to setup remote connections. For
+> directions on how to install PuTTY please visit the [setup page]({{site.url}}{{site.baseurl}}/setup).
 {: .callout}
 
 ## Where are we?
@@ -81,12 +74,12 @@ Very often, many users are tempted to think of a high-performance computing inst
 giant, magical machine. Sometimes, people will assume that the computer they've logged onto is the
 entire computing cluster. So what's really happening? What computer have we logged on to? The name
 of the current computer we are logged onto can be checked with the `hostname` command. (You may also
-notice that the current hostname is also part of our prompt!)
+notice that the current hostname is also part of our prompt)
 
 ```
 {{ site.host_prompt}} hostname
 ```
-{: .bash}
+{: .language-bash}
 
 ```
 {{ site.host_name }}
@@ -100,28 +93,31 @@ hear people call them *servers*, *computers* and *machines*). On a cluster, ther
 types of nodes for different types of tasks. The node where you are right now is called the *head
 node*, *login node* or *submit node*. A login node serves as an access point to the cluster. As a
 gateway, it is well suited for uploading and downloading files, setting up software, and running
-quick tests. It should never be used for doing actual work.
+quick tests. **It should never be used for running a compute tasks.**
 
 The real work on a cluster gets done by the *worker* (or *compute*) *nodes*. Worker nodes come in
 many shapes and sizes, but generally are dedicated to long or hard tasks that require a lot of
 computational resources.
 
 All interaction with the worker nodes is handled by a specialized piece of software called a
-scheduler (the scheduler used in this lesson is called {{ site.workshop_shed_name }}). We'll
+scheduler (the scheduler used in this lesson is called {{ site.sched_name }}). We'll
 learn more about how to use the scheduler to submit jobs next, but for now, it can also tell us
 more information about the worker
 nodes.
 
-For example, we can view all of the worker nodes with the `{{ site.sched_info }}` command.
+For example, we can view all of the worker nodes with the `{{ site.sched_info }}` command. On 
+{{site.host_name}} this can be a lot of nodes. To limit the nodes to just the ones owned by your 
+*investing-entity* use the  `{{site.sched_info }} -p <<investing-entity>>`. An example of this
+is shown below.
 
 ```
-{{ site.host_prompt}} {{ site.sched_info }}
+{{ site.host_prompt}} {{ site.sched_info }} -p it_css
 ```
-{: .bash}
+{: .language-bash}
 ```
 {% include /snippets/12/info.snip %}
 ```
-{: .output}
+{:  .output}
 
 There are also specialized machines used for managing disk storage, user authentication, and other
 infrastructure-related tasks. Although we do not typically logon to or interact with these machines

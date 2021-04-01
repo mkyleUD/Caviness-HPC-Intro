@@ -16,6 +16,8 @@ keypoints:
   smaller systems."
 - "The standard method of interacting with such systems is via a command line interface such as
   Bash."
+- "All Cavines user accounts require a sponorship from a investing-entity (stakeholer). The inverting-
+   entity provide computer resources to their workgroup members."
 ---
 
 ## What is the  {{ site.host_name }} Cluster?
@@ -145,7 +147,33 @@ of group names: class and investing-entity.
     [workgroup](https://docs.hpc.udel.edu/abstract/caviness/app_dev/compute_env#using-workgroup-and-directories). 
     The investing-entity's stakeholders and its sponsored users are members of that cluster group. To see the 
     usernames of all members of an investing-entity's group, type the `getent group «investing_entity»` command. 
+
+    For example, the command below will display the username of the it_css members.
+
+    ```
+    getent group it_css
+    ```
+    {: .language-bash}
+    ```
+    it_css:*:1002:user_1,user_2,user_3,traine
+    ```
+    {: .output}
+    Together, `getent <<investing-entity>>` and `hpc-user-info -a` will let you determine the identities of a cluster's
+    group members.
+    To get complete infromation regarding the cluster group and member you can use the command `hpc-user-info`. The output of this command will list the cluster's group information (description = stakeholder), along with every member in the workgroup and their account information (Username, Full Name, Email Address).
+
+    ```
+    hpc-group-info -a it_css
+    ```
+    {: .language-bash}
+    ```
     
+    member = user1; User One; user1@udel.edu
+    member = user2; User Two; user2@UDel.Edu
+    member = traine; Student Training;
+    member = user3; User Three; user3@UDel.Edu
+    ```
+    {: .output}
 
 
 ## The rest of this lesson
@@ -155,7 +183,6 @@ topics about the use of *slurm* to submit jobs and the best practices for using 
 That will include information on {{site.host_name}}’s file systems and compute node types. This lesson will not be 
 able to cover everything. For more information about the {{site.host_name}} cluster and all other 
 {{site.host_location}} HPC clusters you can visit [ IT-RCI](https://docs.hpc.udel.edu). 
-
 
 
 {% include links.md %}

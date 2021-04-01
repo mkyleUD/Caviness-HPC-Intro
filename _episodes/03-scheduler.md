@@ -33,15 +33,6 @@ as in your laptop.
 alt="Compare a job scheduler to a waiter in a restaurant" caption="" %}
 
 
-> ## Job scheduling roleplay (optional)
-> 
-> Your instructor will divide you into groups taking on different roles in the cluster (users,
-> compute nodes and the scheduler). Follow their instructions as they lead you through this
-> exercise. You will be emulating how a job scheduling system works on the cluster.
-> 
-> [*notes for the instructor here*](../guide)
-{: .challenge}
-
 The scheduler used in this lesson is {{ site.sched_name }}. Although {{ site.sched_name }} is not used everywhere,
 running jobs is quite similar regardless of what software is being used. The exact syntax might change, but the
 concepts remain the same.
@@ -53,7 +44,7 @@ of commands) that you want to run on the cluster is called a *job*, and the proc
 scheduler to run the job is called *batch job submission*.
 
 In this case, the job we want to run is just a shell script. Let's create a demo shell script to 
-run as a test.
+run as a test (Let's name the script example-job.sh)
 
 > ## Creating our test job
 > 
@@ -63,21 +54,34 @@ run as a test.
 >```
 >#!/bin/bash
 >
-> echo 'This script is running on:'
-> hostname
+> echo "This script is running on: ${HOSTNAME}"
 > sleep 120
 > ```
-> {: .bash}
+> {: .source}
 {: .challenge}
 
-If you completed the previous challenge successfully, you probably realise that there is a
+If you completed the previous challenge successfully, you probably realize that there is a
 distinction between running the job through the scheduler and just "running it". To submit this job
 to the scheduler, we use the `{{ site.sched_submit }}` command.
 
+If you completed the previous chanllenge than you say the submitted job was ran on the login node and 
+not a compute node. To run a job on a compute node you need to make sure that you first join your
+investing-entity's workgroup and use the ``{{ site.sched_submit }}`` command to submit your job.
+
+A workgroup is {{ site.sched_name }}'s way knowing which compute nodes you have access to. Below is an
+example of how to join a workgroup. Notice after you join your workgroup the workgroup's name is prepended
+to your user name. 
 ```
-[{{ site.host_prompt }} {{ site.sched_submit }} {{ site.sched_submit_options }} example-job.sh
+{{ site.host_prompt }} workgroup -g it_css
+{{site.host_workgroup_prompt}}
 ```
-{: .bash}
+{: .language-bash}
+
+Now that we made sure that we are in our respective workgroups we can submit our example script.
+```
+{{ site.host_workgroup_prompt }} {{ site.sched_submit }} {{ site.sched_submit_options }} example-job.sh
+```
+{: .language-bash}
 ```
 {% include /snippets/13/submit_output.snip %}
 ```
@@ -89,9 +93,9 @@ the *queue*. To check on our job's status, we check the queue using the command
 `{{ site.sched_status }} {{ site.sched_flag_user }}`.
 
 ```
-{{ site.host_prompt }} {{ site.sched_status }} {{ site.sched_flag_user }}
+{{ site.host_workgroup_prompt }} {{ site.sched_status }} {{ site.sched_flag_user }}
 ```
-{: .bash}
+{: .language-bash}
 ```
 {% include /snippets/13/statu_output.snip %}
 ```
@@ -106,10 +110,10 @@ administrator. You can change the interval to a more reasonable value, for examp
 `-n 60` parameter. Let's try using it to monitor another job.
 
 ```
-{{ site.host_prompt }} {{ site.sched_submit }} {{ site.sched_submit_options }} example-job.sh
-{{ site.host_prompt }} watch -n 60 {{ site.sched_status }} {{ site.sched_flag_user }}
+{{ site.host_workgroup_prompt }} {{ site.sched_submit }} {{ site.sched_submit_options }} example-job.sh
+{{ site.host_workgroup_prompt }} watch -n 60 {{ site.sched_status }} {{ site.sched_flag_user }}
 ```
-{: .bash}
+{: .language-bash}
 
 You should see an auto-updating display of your job's status. When it finishes, it will disappear
 from the queue. Press `Ctrl-C` when you want to stop the `watch` command.
@@ -123,9 +127,9 @@ resources we must customize our job script.
 
 Comments in UNIX (denoted by `#`) are typically ignored. But there are exceptions. For instance the
 special `#!` comment at the beginning of scripts specifies what program should be used to run it
-(typically `/bin/bash`). Schedulers like {{ site.workshop_sched_name }} also have a special comment
+(typically `/bin/bash`). Schedulers like {{ site.sched_name }} also have a special comment
 used to denote special scheduler-specific options. Though these comments differ from scheduler to
-scheduler, {{ site.workshop_sched_name }}'s special comment is `{{ site.sched_comment }}`.
+scheduler, {{ site.sched_name }}'s special comment is `{{ site.sched_comment }}`.
 Anything following the `{{ site.sched_comment }}` comment is interpreted as an
 instruction to the scheduler.
 
@@ -136,17 +140,16 @@ Submit the following job (`{{ site.sched_submit }} {{ site.sched_submit_options 
 
 ```
 #!/bin/bash
-{{ site.sched_comment }} {{ site.sched_flag_name }} new_name
+{{ site.sched_comment }} {{ site.sched_flag_name }} example_script
 
-echo 'This script is running on:'
-hostname
+echo "This script is running on:${HOSTNAME}"
 sleep 120
 ```
-
+{: .source}
 ```
-{{ site.host_prompt }} {{ site.sched_status }} {{ site.sched_flag_user }}
+{{ site.host_workgroup_prompt }} {{ site.sched_status }} {{ site.sched_flag_user }}
 ```
-{: .bash}
+{: .language-bash}
 ```
 {% include /snippets/13/statu_name_output.snip %}
 ```
@@ -160,8 +163,17 @@ Fantastic, we've successfully changed the name of our job!
 > constantly check on the status of our job with `{{ site.sched_status }}`. Looking at the
 > man page for `{{ site.sched_submit }}`, can you set up our test job to send you an email
 > when it finishes?
-> >
+>
+> > ## Solution
+> > 
+> > ```
+> > {{site.sched_comment}} --mail-user='{{site.host_id}}@udel.edu'
+> > {{site.sched_comment}} --mail-type=END
+> > ```
+> > {: .source} 
+>  {: .solution}
 {: .challenge}
+
 
 ### Resource requests
 
@@ -181,17 +193,34 @@ about how to make sure that you're using resources effectively in a later episod
 > ## Submitting resource requests
 >
 > Submit a job that will use 1 full node and 5 minutes of walltime.
+> 
+> > ## Solution
+> > 
+> > ```
+> > #Requesting all 40 cores for the 1 task
+> > {{site.sched_comment}} --cpus-per-task=40
+> > #Blocking the sharing of the node with other users unless they are declared
+> > {{site.sched_comment}} --exclusive
+> > #Requesting 1 task per node
+> > {{site.sched_comment}} -ntask=1
+> > #Setting the max wall clock at 5 minutes
+> > {{site.sched_comment}} --time=0-00:05:00
+> > 
+> > ```
+> > {: .source} 
+>  {: .solution}
 {: .challenge}
 
 {% include /snippets/13/env_challenge.snip %}
 
 Resource requests are typically binding. If you exceed them, your job will be killed. Let's use
-walltime as an example. We will request 30 seconds of walltime, and attempt to run a job for two
+walltime as an example. We will request 1 minute of walltime, and attempt to run a job for two
 minutes.
 
 ```
 {% include /snippets/13/long_job.snip %}
 ```
+{: .language-bash}
 
 Submit the job and wait for it to finish. Once it is has finished, check the log file.
 
@@ -200,7 +229,7 @@ Submit the job and wait for it to finish. Once it is has finished, check the log
 {{ site.host_prompt }} watch -n 60 {{ site.sched_status }} {{ site.sched_flag_user }}
 {% include /snippets/13/long_job_cat.snip %}
 ```
-{: .bash}
+{: .language-bash}
 ```
 {% include /snippets/13/long_job_err.snip %}
 ```
@@ -226,7 +255,7 @@ walltime so that it runs long enough for you to cancel it before it is killed!).
 {{ site.host_prompt }} {{ site.sched_submit }} {{ site.sched_submit_options }} example-job.sh
 {{ site.host_prompt }} {{ site.sched_status }} {{ site.sched_flag_user }}
 ```
-{: .bash}
+{: .language-bash}
 ```
 {% include /snippets/13/del_job_output1.snip %}
 ```
@@ -240,7 +269,7 @@ successfully cancelled.
 ... Note that it might take a minute for the job to disappear from the queue ...
 {{ site.host_prompt }} {{ site.sched_status }} {{ site.sched_flag_user }}
 ```
-{: .bash}
+{: .language-bash}
 ```
 {% include /snippets/13/del_job_output2.snip %}
 ```
@@ -253,10 +282,9 @@ successfully cancelled.
 Up to this point, we've focused on running jobs in batch mode. {{ site.sched_name }}
 also provides the ability to start an interactive session.
 
-There are very frequently tasks that need to be done interactively. Creating an entire job
+Occasionally there are tasks that need to be done interactively. Creating an entire job
 script might be overkill, but the amount of resources required is too much for a login node to
-handle. A good example of this might be building a genome index for alignment with a tool like
-[HISAT2](https://ccb.jhu.edu/software/hisat2/index.shtml). Fortunately, we can run these types of
+handle. A good example of this might be a trial run of a matlab script. Fortunately, we can run these types of
 tasks as a one-off with `{{ site.sched_interactive }}`.
 
 {% include /snippets/13/interactive_example.snip %}

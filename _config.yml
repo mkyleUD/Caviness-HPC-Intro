@@ -103,6 +103,7 @@ host_location: "University of Delaware"
 host_homedir: "/home/1201"
 host_prompt: "[traine@login00 ~]$ "
 host_workgroup_prompt: "[(it_css:traine)@login00 ~]$ "
+host_short_prompt: "[(it_css:traine)@login00"
 local_prompt: "user@laptop: ~ $ "
 sched_name: "SLURM"
 sched_submit: "sbatch"
@@ -110,6 +111,7 @@ sched_submit_options: ""
 sched_status: "squeue"
 sched_flag_user: "-u traine"
 sched_id: "traine@r00n56"
+sched_prompt: "[traine@r00n56]$ "
 sched_del: "scancel"
 sched_interactive: "srun"
 sched_flag_interactive: ""
@@ -168,6 +170,6 @@ exclude:
 highlighter: rouge
 
 # Costum host location
-host: 192.168.123.114
+host: 192.168.123.113
 
 theme: jekyll-theme-cayman

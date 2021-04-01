@@ -9,7 +9,7 @@ objectives:
 keypoints:
 - "`wget` downloads a file from the internet."
 - "`scp` transfer files to and from your computer."
-- "You can use an SFTP client like FileZilla to transfer files through a GUI."
+- "You can use an SFTP client like winSCP to transfer files through a GUI."
 ---
 
 Computing with a remote computer offers very limited use if we cannot get files to 
@@ -37,13 +37,13 @@ for new users, but we'll break it down here:
 
 To transfer *to* another computer:
 ```
-{{ site.local_prompt }} scp /path/to/local/file.txt yourUsername@remote.computer.address:/path/on/remote/computer
+{{ site.local_prompt }} scp /path/to/local/file.txt {{ site.host_id }}@{{ site.host_login }}:/path/on/remote/computer
 ```
 {: .bash}
 
 To download *from* another computer:
 ```
-{{ site.local_prompt }} scp yourUsername@remote.computer.address:/path/on/remote/computer/file.txt /path/to/local/
+{{ site.local_prompt }} scp {{ site.host_id }}@{{ site.host_login }}:/path/on/remote/computer/file.txt /path/to/local/
 ```
 {: .bash}
 
@@ -52,14 +52,14 @@ after the `:` is relative to our home directory. We can simply just add a `:` an
 if we don't care where the file goes.
 
 ```
-{{ site.local_prompt }} scp local-file.txt yourUsername@remote.computer.address:
+{{ site.local_prompt }} scp local-file.txt {{ site.host_id }}@{{ site.host_login }}:
 ```
 {: .bash}
 
 To recursively copy a directory, we just add the `-r` (recursive) flag:
 
 ```
-{{ site.local_prompt }} scp -r some-local-folder/ yourUsername@remote.computer.address:target-directory/
+{{ site.local_prompt }} scp -r some-local-folder/ {{ site.host_id }}@{{ site.host_login }}:target-directory/
 ```
 {: .bash}
 
@@ -72,7 +72,7 @@ To recursively copy a directory, we just add the `-r` (recursive) flag:
 >
 > The syntax is similar to `scp`. To transfer *to* another computer with commonly used options:
 > ```
-> [local]$ rsync -avzP /path/to/local/file.txt yourUsername@remote.computer.address:/path/on/remote/computer
+> {{ site.local_prompt }}$ rsync -avzP /path/to/local/file.txt {{ site.host_id }}@{{ site.host_login }}:/path/on/remote/computer
 > ```
 > {: .bash}
 >
@@ -84,7 +84,7 @@ To recursively copy a directory, we just add the `-r` (recursive) flag:
 >
 > To recursively copy a directory, we can use the same options:
 > ```
-> [local]$ rsync -avzP /path/to/local/dir yourUsername@remote.computer.address:/path/on/remote/computer
+> {{ site.local_prompt }}$ rsync -avzP /path/to/local/dir {{ site.host_id }}@{{ site.host_login }}:/path/on/remote/computer
 > ```
 > {: .bash}
 > 
@@ -92,19 +92,19 @@ To recursively copy a directory, we just add the `-r` (recursive) flag:
 > 
 > To download a file, we simply change the source and destination:
 > ```
-> [local]$ rsync -avzP yourUsername@remote.computer.address:/path/on/remote/computer/file.txt /path/to/local/
+> {{ site.local_prompt }}$ rsync -avzP yourUsername@remote.computer.address:/path/on/remote/computer/file.txt /path/to/local/
 > ```
 > {: .bash}
 {: .callout}
 
-## Transferring files interactively with FileZilla (sftp)
+## Transferring files interactively with WinSCP (sftp)
 
-FileZilla is a cross-platform client for downloading and uploading files to and from a remote
-computer. It is absolutely fool-proof and always works quite well. It uses the `sftp`
-protocol. You can read more about using the `sftp` protocol in the command line [here]({{ site.baseurl }}{% link _extras/discuss.md %}).
+WinSCP is a windows bases application for downloading and uploading files to and from a remote
+computer. It is very user friendly and always works quite well. It uses the `sftp`
+protocol as well as several others. You can read more about using the `sftp` protocol in the command line [here]({{ site.baseurl }}{% link _extras/discuss.md %}).
 
-Download and install the FileZilla client from
-[https://filezilla-project.org](https://filezilla-project.org). After installing and opening the
+Download and install the WinSCP client from
+[https://winscp.net/eng/download.php](https://winscp.net/eng/download.php). After installing and opening the
 program, you should end up with a window with a file browser of your local system on the left hand
 side of the screen. When you connect to the cluster, your cluster files will appear on the right
 hand side.

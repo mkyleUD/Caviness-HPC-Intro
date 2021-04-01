@@ -4,4 +4,17 @@
 > let us check our work from the last problem. The `SLURM_CPUS_PER_TASK` variable is set to the
 > number of CPUs we requested with `-c`. Using the `SLURM_CPUS_PER_TASK` variable, modify your job
 > so that it prints how many CPUs have been allocated.
+> > ## Solution
+> > 
+> > ```
+> > #!/bin/bash
+> > #SBATCH --cpus-per-task=4
+> > #SBATCH -ntask=1
+> > 
+> > echo "This script is running on ${HOSTNAME}"
+> > echo "It is using ${SLURM_CPUS_PER_TASK} cpus"
+> > sleep 120 
+> > ```
+> > {: .source} 
+>  {: .solution}
 {: .challenge}

@@ -36,7 +36,7 @@ The login node is often very busy managing lots of users logged in, creating and
 and compiling software! It doesn’t have any extra space to run computational work.
 
 Don’t run jobs on the login node (though quick tests are generally fine). A “quick test” is
-generally anything that uses less than 5 minutes of time. If you
+generally anything that uses less than 5 minutes of time and does not use much memory. If you
 use too much resource then other users on the login node will start to be affected - their
 login sessions will start to run slowly and may even freeze or hang. 
 
