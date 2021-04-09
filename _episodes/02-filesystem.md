@@ -5,20 +5,20 @@ exercises: 15
 questions:
 - "What are the available filesystems on Caviness?"
 - "What are the different filesystems used for?"
-- "How do you monitor your storage usuage?"
+- "How do you monitor your storage usage?"
 objectives:
 - "Understand where you should store your files."
 keypoints:
 - "Each user has 20GB of space in their home directories.  "
 - "Each workgroup has at least 1000GB of shared space in their work directory."
-- "Lustre filesystem Storge is a community share resource and has 210TB ofr usable space."
+- "Lustre filesystem storage is a community share resource and has 210TB ofr usable space."
 - "Source code and executables aren't permitted to be run or stored on the Lustre filesystem."
 ---
 
 There are three diffeent filesystems on the {{ site.host_name }} cluster. They are the parmanent,
 high performance and local filesytems. Each filesystem has different amounts of storage variable 
-to users. There is also differences in how data backed up on the different filesystems and with 
-the types of data that can be stored on them. With this in mind we will go into the the details 
+to users. There is also differences in how data is backed up on the different filesystems and with 
+the types of data that can be stored on them. With this in mind we will go into the  details 
 of how and when you should use each of these different filesystems.
 
 ## Permanent filesystem
@@ -54,7 +54,7 @@ Each research group has at least 1000 GB of shared group (workgroup) storage in 
 identified by the `«investing_entity»` (e.g., /work/it_css) and is referred to as your workgroup 
 directory. This is used for input files, supporting data files, work files, and output files, source code
 and executables that need to be shared with your research group. Just as your home directory, read-only 
-snapshots of workgroup's files are made several times for the passed week. In addition, the filesystem is 
+snapshots of workgroup's files are made several times for the past week. In addition, the filesystem is 
 replicated on UD's off-campus disaster recovery site. Snapshots are user-accessible, and older files may be 
 retrieved by special request.
 
@@ -84,10 +84,10 @@ with computational tasks run on the cluster. The filesystem is accessible to all
 via Omni-path Infiniband. 
 
 ### Lustre storage
-The Lustre filesystem is not backed up nor are there snapshots to recover deleted files. However, it 
+The Lustre filesystem is not backed up nor are their snapshots to recover deleted files. However, it 
 is a robust RAID-6 system. Thus, the filesystem can survive a concurrent disk failure of two 
 independent hard drives and still rebuild its contents automatically. All users have access 
-to the public scratch directory (lustre/scratch). They can also create their own directorys under 
+to the public scratch directory (lustre/scratch). They can also create their own directories under 
 the `/lustre/scratch` directory. It should be noted that IT-RCI staff may run cleanup procedures 
 as needed to purge aged files or directories in `/lustre/scratch` if old files are degrading 
 system performance.  
@@ -101,7 +101,7 @@ system performance.
 Remember the Lustre filesystem is temporary disk storage. Your workflow should start by copying 
 needed data files to the high performance Lustre filesystem, `/lustre/scratch`, and finish 
 by copying results back to your private `$HOME` or shared `$WORKDIR` directory. 
-Please clean up (delete) all of the remaining files in `/lustre/scratch` no longer needed. 
+Please clean up (delete) all of the remaining files in `/lustre/scratch` that no longer needed. 
 If you do not clean up properly, then IT staff will request all users to clean up /lustre/scratch, 
 but may need to enable an automatic cleanup procedure to avoid critical situations in the future. 
 
@@ -122,7 +122,7 @@ such as managing virtual memory. The system usage of the local disk is kept as s
 to allow some local disk for your applications, running on the node
 
 It is possible to monitor the amount of space used on a node. To you do this by combining the `ssh`
-and `df =h` commonds. The example below shows you the steps need to do that.
+and `df =h` commands. The example below shows you the steps need to do that.
 
 ```
 {{ site.host_workgroup_prompt }} ssh r01n39 df -h /tmp
@@ -183,8 +183,8 @@ group /work/it_css       336004096      1073741824  31%
 {: .output}
 
 ## Recovering Files
-Using the CLI and Unix can be a pretty unforgiving when deleteing files. To help protect used from losing files that were accidentially delete from their home and workgroup directories. The snapshots are stored in the `$HOME/.zfs/snapshot/` and 
-`$WORKGROUP/.zfs/snapshot/`. The `.zfs` directory does not show up in a directory listing using ` ls -a` as it is hidden, but you can view the directory's contents with the `cd` command. If there you will find a series of directories in a yyyymmdd-HHMM naming format. The table below breaks down the what the values are making up the directory.  Each day three snapshots are taken, and daily snapshots are kept going back for a months, after that there are weekly, and finally monthly snapshots. 
+Using the CLI and Unix can be unforgiving when deleting files. To help protect user from losing files that were accidentally deleted from their home and workgroup directories, system administrators take snapshots of the before mentions directories. The snapshots are stored in  `$HOME/.zfs/snapshot/` and 
+`$WORKGROUP/.zfs/snapshot/`. The `.zfs` directory does not show up in a directory listing using ` ls -a` as it is hidden, but you can view the directory's contents with the `cd` command. If there you will find a series of directories in a yyyymmdd-HHMM naming format. The table below breaks down the what the values are that make up the directory.  Each day three snapshots are taken, and daily snapshots are kept going back for a months, after that there are weekly, and finally monthly snapshots. 
 
 | Snapshot Directory Naming format |
 | Abbreviation | Defination |
@@ -195,8 +195,5 @@ Using the CLI and Unix can be a pretty unforgiving when deleteing files. To help
 | MM | Two digit minute value |
 
 
-
-
-### Home and Workgroup snapshots
 
 {% include links.md %}

@@ -26,7 +26,7 @@ Services at the University of Delaware. In the 1980's, Jane  {{ site.host_name }
 of UD's computing resources and network infrastructure that laid the foundation for UD's current
 research computing capabilities. 
 
- {{ site.host_name }} is University of Delaware's (UD) third community cluster. It was deployed in July 2018 and 
+ {{ site.host_name }} is University of Delaware's third community cluster. It was deployed in July 2018 and 
 is a distributed-memory Linux cluster. It is based on a rolling-upgradeable model for expansion and 
 replacement of hardware over time. The first generation consists of 126 compute nodes 
 (4536 cores, 24.6 TB memory). The nodes are built of Intel “Broadwell” 18-core processors in a 
@@ -40,7 +40,7 @@ April 2023 to June 2023 time period.
 faculty and researchers who require high-performance computing resources. Faculty and researchers
 become financial stakeholders by purchasing HPC resources (based on the cost of one or more compute
 nodes) in the cluster. Only stakeholders and the researchers sponsored by a stakeholder may use the
-cluster. It is located at UD's Computeing Center.
+cluster. It is located at UD's Computing Center.
 
 
 ## Why Use The  {{ site.host_name }} Cluster
@@ -51,9 +51,9 @@ cluster. It is located at UD's Computeing Center.
 {: .challenge}
 
 Frequently, research problems that use computing can outgrow the desktop or laptop computer where
-they started:
+they start:
 
-* A statistics student wants to do cross-validate their model. This involves running the model 1000
+* A statistics student wants to cross-validate their model. This involves running the model 1000
   times -- but each run takes an hour. Running on their laptop will take over a month!
 * A genomics researcher has been using small datasets of sequence data, but soon will be receiving 
   a new type of sequencing data that is 10 times as large. It's already challenging to open the
@@ -94,7 +94,7 @@ at the start of the lesson.
 >
 > How do you think using a large-scale computing system will be different from using your laptop?
 > Talk to your neighbor about some differences you may already know about, and some
-> differences/difficulties you imagine you may run into.
+> differences or difficulties you imagine you may run into.
 {: .challenge}
 
 ## On Command Line
@@ -115,9 +115,9 @@ implementations of Unix and in most packages that provide Unix-like tools for Wi
 All {{site.host_name}} user accounts must be sponsored by a 
 [{{ site.host_name }} stakeholder](https://docs.hpc.udel.edu/abstract/caviness/account/stakeholders) 
 for a particular investing entity. The request for the account **MUST** come from the investing
-entity's stakeholder. After a request has been made a memember of UD's Research Cyberinfrastructure
-will create the account and add them to the investing entity's workgroup to be able use and share 
-{{ site.host_name}}'s resources. 
+entity's stakeholder. After a request has been made a member of UD's Research Cyberinfrastructure
+team will create the account and add them to the investing entity's workgroup to be able use and 
+share {{ site.host_name}}'s resources. 
 
 ### {{site.host_name}} Accounts
 {{site.host_name}}'s compute nodes are organizationally identified by UD research group names.
@@ -176,13 +176,13 @@ of group names: class and investing-entity.
     {: .output}
 
 
-## The rest of this lesson
+## The Rest of this Lesson
 This lesson will cover the basic information on how to use the {{site.host_name}} cluster to assist you with your research.
 The topics covered will include {{site.host_name}}’s unique software management system, *VALET*. We will also cover 
 topics about the use of *slurm* to submit jobs and the best practices for using the cluster’s resources responsibly.
 That will include information on {{site.host_name}}’s file systems and compute node types. This lesson will not be 
 able to cover everything. For more information about the {{site.host_name}} cluster and all other 
-{{site.host_location}} HPC clusters you can visit [ IT-RCI](https://docs.hpc.udel.edu). 
+{{site.host_location}} HPC clusters you can visit [UD's HPC Wiki](https://docs.hpc.udel.edu). 
 
 
 {% include links.md %}

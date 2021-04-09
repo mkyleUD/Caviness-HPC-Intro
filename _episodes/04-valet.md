@@ -28,7 +28,7 @@ behind this approach. The three biggest factors are:
 Software incompatibility is a major headache for programmers. Sometimes the presence (or absence) of
 a software package will break others that depend on it. Two of the most famous examples are Python 2
 and 3 and C compiler versions. Python 3 famously provides a `python` command that conflicts with
-that provided by Python 2. Software compiled against a newer version of the C libraries and then
+the same in Python 2. Software compiled against a newer version of the C libraries and then
 used when they are not present will result in a nasty `'GLIBCXX_3.4.20' not found` error, for
 instance.
 
@@ -46,22 +46,22 @@ software library available for it to work.
 > ## Remember to Join Your Workgroup!
 >
 > It is best practice to make sure that you join your workgroup before loading any software packages.
-> If you load software then join your workgroup the loaded packages will be missing. This is becuase
+> If you load software then join your workgroup the loaded packages will be missing. This is because
 > when you join your workgroup you also create a new shell session, and currently when this happens 
 > you loaded software packages do not carry over to your new shell. 
 {: .prereq}
 
 ## VALET Automates Linux Environment Tasks
 
-Here at UD, we developed VALET. VALET facilitates your use of compilers, libraries, programming tools and
+Here at {{site.host_location}}, we developed VALET. VALET facilitates your use of compilers, libraries, programming tools and
 application software. It provides a uniform mechanism for setting up a package's required UNIX 
-environment. VALET Automates Linux Environment Tasks is {{site.host_location}}'s the solution to 
+environment. VALET Automates Linux Environment Tasks is {{site.host_location}}'s solution to 
 these problems. Valet -- a recursive acronym  for  VALET  AutomatesLinux  Environment  Tasks  --  is  an 
 alternative that strives to be as simple as possible to configure and to  use,  while  
-adding  features  not  present  in  the  *modules* software.
+adding  features that are not  present  in  the  *modules* software.
 
 A *module* is a self-contained description of a software package - 
-it contains the settings required to run a software packace 
+it contains the settings required to run a software packages 
 and, usually, encodes required dependencies on other software packages.
 
 There are a number of different environment module implementations commonly
@@ -222,7 +222,7 @@ s
 ```
 {: .output}
 
-> ## What so the * mean? 
+> ## What does the * mean? 
 > The * means that is the default version that will be loaded if one is not
 > specified when using the vpkg_require command.
 > 
@@ -231,7 +231,7 @@ s
 
 > ## Using software packages in scripts
 >
-> Create a job that is able to run `python3`. Remember, no software is loaded by default!
+> Create a job that can run `python3`. Remember, no software is loaded by default!
 > Running a job is just like logging on to the system (you should not assume a module loaded on the
 > login node is loaded on a compute node).
 {: .challenge}
@@ -255,7 +255,7 @@ This is not something the IT-RCI team suggest users to do.
 # This sections still needs to be upated for Caviness!!!!
 ## Installing software of our own
 
-{{ site.host_name }} like most HPC clusters have a pretty large set of preinstalled software. Nonetheless, 
+{{ site.host_name }} like most HPC clusters have a large sets of preinstalled software. Nonetheless, 
 it's unlikely that all of the software we'll need will be available. Sooner or later, we'll need 
 to install some software of our own.
 
@@ -263,7 +263,7 @@ Though software installation differs from package to package, the general proces
 download the software, read the installation instructions (important!), install dependencies,
 compile, then start using our software.
 
-As an example we will install the bioinformatics toolkit `seqtk`. We'll first need to obtain the
+As an example, we will install the bioinformatics toolkit `seqtk`. We'll first need to obtain the
 source code from GitHub using `git`.
 
 ```

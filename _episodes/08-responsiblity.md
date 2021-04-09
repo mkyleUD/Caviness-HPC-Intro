@@ -55,11 +55,11 @@ with the *PID* to terminate any processes that are using large amounts of resour
 > ## Login Node Etiquette
 > 
 > Which of these commands would probably be okay to run on the login node?
-> python physics_sim.py
-> make
-> create_directories.sh
-> molecular_dynamics_2
-> tar -xzf R-3.3.0.tar.gz
+> - python physics_sim.py
+> - make
+> - create_directories.sh
+> - molecular_dynamics_2
+> - tar -xzf R-3.3.0.tar.gz
 > 
 {: .challenge}
 
@@ -69,19 +69,19 @@ to see which users are using which resources.
 
 ## Test before scaling
 
-Remember that you are generally charged for usage on shared systems. A simple mistake in a 
-job script can end up costing a large amount of resource budget. Imagine a job script with 
-a mistake that makes it sit doing nothing for 24 hours on 1000 cores or one where you have
-requested 2000 cores by mistake and only use 100 of them! This problem can be compounded 
-when people write scripts that automate job submission (for example, when running the same
-calculation or analysis over lots of different input).  When this happens it hurts both you
-(as you waste lots of charged resource) and other users (who are blocked from accessing the
-idle compute nodes).
+All {{ site.host_name }} users are members of a workgroup whose owner bought into the cluster.
+This means that users are not billed for the resources they use by their submitted jobs.
+However, this does not mean that users should not use the same care and caution when submitting
+large jobs. A simple mistake in a job script can tie up a large amount of resource. Imagine a 
+job script with a mistake that makes it sit doing nothing for 24 hours on 1000 cores or one where
+you have requested 2000 cores by mistake and only use 100 of them! This problem can be compounded
+when people write scripts that automate job submission (for example, when running the same 
+calculation or analysis over lots of different input). These mistakes could cause the job to 
+be preempted on the standard node, or tie up your workgroup’s resources. This could limit or even block other members of your workgroup from submitting a job.
 
-On very busy resources you may wait many days in a queue for your job to fail within 10 seconds
-of starting due to a trivial typo in the job script. This is extremely frustrating! Most
-systems provide dedicated resources for testing that have short wait times to help you 
-avoid this issue.
+To help users test jobs {{ site.host_name }} has `devel` nodes. These nodes have limited 
+resources which are intended for testing jobs with short queues times. This will help prevent
+the wasting of shared workgroup and community resources.
 
 > ## Test job submission scripts that use large amounts of resource
 > Before submitting a large run of jobs, submit one as a test first to make sure everything works
@@ -93,11 +93,10 @@ avoid this issue.
 
 ## Have a backup plan
 
-Although many HPC systems keep backups, it does not always cover all the file systems available
-and may only be for disaster recovery purposes (*i.e.* for restoring the whole file system if lost
-rather than an individual file or directory you have deleted by mistake). Your data on the
-system is primarily your responsibility and you should ensure you have secure copies of data
-that are critical to your work.
+Although many {{ site.host_name }} keep backups of some directories, it does not cover all the file systems available. and may only be for disaster recovery purposes (*i.e.* for restoring the whole 
+file system if lost rather than an individual file or directory you have deleted by mistake). 
+Your data on the system is primarily your responsibility and you should ensure you have secure 
+copies of data that are critical to your work.
 
 Version control systems (such as Git) often have free, cloud-based offerings (e.g. Github, Gitlab)
 that are generally used for storing source code. Even if you are not writing your own 
@@ -105,28 +104,20 @@ programs, these can be very useful for storing job scripts, analysis scripts and
 input files. 
 
 For larger amounts of data, you should make sure you have a robust system in place for taking
-copies of critical data off the HPC system wherever possible to backed-up storage. Tools such
+copies of critical data off {{ site.host_name }} wherever possible to backed-up storage. Tools such
 as `rsync` can be very useful for this.
 
-Your access to the shared HPC system will generally be time-limited so you should ensure you have a
-plan for transferring your data off the system before your access finishes. The time required to
-transfer large amounts of data should not be underestimated and you should ensure you have planned
-for this early enough (ideally, before you even start using the system for your research).
-
-In all these cases, the helpdesk of the system you are using should be able to provide useful
-guidance on your options for data transfer for the volumes of data you will be using.
 
 > ## Your data is your responsibility
-> Make sure you understand what the backup policy is on the file systems on the system you are
-> using and what implications this has for your work if you lose your data on the system. Plan
-> your backups of critical data and how you will transfer data off the system throughout the
-> project.
+> Make sure you understand what the backup policies are on {{ site.host_name }}'s file systems and 
+> what implications they have for your work if you lose your data on the system. Plan your backups of
+> critical data and how you will transfer data on and off the system throughout the project.
 {: .callout}
 
 ## Transferring data
 
 As mentioned above, many users run into the challenge of transferring large amounts of data 
-off HPC systems at some point (this is more often in transferring data off than onto systems
+off {{ site.host_name }} at some point (this is more often in transferring data off than onto systems
 but the advice below applies in either case). Data transfer speed may be limited by many
 different factors so the best data transfer mechanism to use depends on the type of data being
 transferred and where the data is going. Some of the key issues to be aware of are:

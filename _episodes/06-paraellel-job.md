@@ -3,18 +3,18 @@ title: "Running jobs on the cluster"
 teaching: 30
 exercises: 30
 questions:
-- "What are types of jobs are there?"
+- "What are the different types of jobs?"
 - "Which type of job is the correct one for my task?"
 objectives:
 - "Understand what the different job types are and when we should run them."
 keypoints:
 - "Serial jobs on a HPC are commonly all that is needed."
-- "Thread jobs run on 1 nodes but can use multiple cores"
-- "Parallel jobs can run on multiple nodes and multiple cores."
+- "Thread jobs run on 1 node but can use multiple cores"
+- "Parallel jobs can run on multiple nodes and use multiple cores."
 ---
-Now that we cover the the scheduler, software, and how to transfer files, the next
+Now that we cover the scheduler, software, and how to transfer files, the next
 step is to create and submit a job.  In this lesson we are going to focus on 
-submitting batch jobs to the develop partition. We are going to submit a
+submitting batch jobs to the standard partition. We are going to submit a
 serial, and parallel job and briefly discuss what 
 each of the different job types are. 
 >## Are you in a workgroup? 
@@ -38,9 +38,9 @@ In this context, a job consists of:
 For an interactive job, the user manually types the sequence of commands once the 
 job is eligible for execution. If the necessary resources for the job are not immediately
 available, then the user must wait; when resources are available, the user must be present 
-at his/her computer in order to type the commands. Since the job scheduler does not care 
-about the time of day, this could happen anytime, day or night. These will not be covered 
-in this lesson.
+at his/her computer to type the commands. Since the job scheduler does not care 
+about the time of day, this could happen anytime, day or night. Interactive jobs will 
+not be covered in this lesson.
 
 ### Batch job
 By comparison, a batch job does not require the user be awake and at his or her computer: 
@@ -58,8 +58,8 @@ Batch jobs will be what we focus on for the rest of this lesson.
 
 ### Our example code
 
-We are going to be several different versions a python script. These example scripts
-implements a stochastic algorithm for estimating the value of &#960;, the ratio 
+We are going to use several different versions a python script. These example scripts
+implement a stochastic algorithm for estimating the value of &#960;, the ratio 
 of the circumference to the diameter of a circle. The program generates a large
 number of random points on a 1&times;1 square centered on (&frac12;,&frac12;), and checks
 how many of these points fall inside the unit circle. On average, &#960;/4 of the
@@ -83,7 +83,10 @@ this is the only core/node assigned to your job. So there is really nothing spec
 you need to do; just enter the command for your job and it should run. 
 
 You still need to submit jobs to the scheduler to have them run on one of the compute nodes. 
-So you will probably want to submit a batch job script via the `{{ site.sched_submit }}` command. Now since we are in the `lesson-files` directory we are going to create a new directory to work in. The new directory is going to be called `serial` and after we create we are going to copy the pi-serial.py script into there, and then `cd` into `serial`
+So you will probably want to submit a batch job script via the `{{ site.sched_submit }}` command.
+Now since we are in the `lesson-files` directory we are going to create a new directory to work in.
+The new directory is going to be called `serial` and after we create it, we are going to copy the 
+pi-serial.py script into there, and then `cd` into `serial`.
 
  ~~~~
  {{ site.host_short_prompt}} lesson-files]$ mkdir serial
@@ -93,7 +96,8 @@ So you will probably want to submit a batch job script via the `{{ site.sched_su
  ~~~~
  {: .language-bash}
 
-Once we are in the `serial` directory we can copy the generic serial batch script `serial.qs` that the RCI maintains. After we copy it we are going to want to start `nano` to edit it to run `serial-pi.py`.
+Once we are in the `serial` directory we can copy the generic serial batch script `serial.qs` that 
+IT-RCI maintains. After we copy it, we are going to want to start `nano` to edit it to run `serial-pi.py`.
 
  ~~~~
  {{ site.host_short_prompt}} serial]$ cp /opt/templates/slurm/generic/serial.qs .
@@ -103,17 +107,11 @@ Once we are in the `serial` directory we can copy the generic serial batch scrip
 
 
 ## Read the comments in serial.qs
- It was mentioned above that serial.qs along with the other files found on 
- `/opt/templates/slurm/generic` are all maintained but the RCI staff. This means there is alot of important information in the comments through out the file. 
+ It was mentioned above, that serial.qs along with the other files found on 
+ `/opt/templates/slurm/generic` are all maintained but the IT-RCI staff. This means there is a 
+ lot of important information in the comments through ut the files. 
  
- >## One other important note on comments
- >For bash lines that start with `#` are ignore by bash because bash thinks they are
- >comments. This is general true, but Slurm does look at the lines that start with `#`
- >more accurately lines that start with `#SBATCH`. Slurm reads these lines as
- >arguments and using them in managing you job. 
-{: .callout}
-
-Once nano starts we are going to want to change the following lines.
+Once nano starts, we are going to want to change the following lines.
  ~~~~
  ... Many lines later... 
  36 # [EDIT] It can be helpful to provide a descriptive (terse) name for
@@ -147,8 +145,8 @@ Once nano starts we are going to want to change the following lines.
  ~~~~
  {: .language-bash}
 
-Once those changes have been made to `serial.qs` save them and submit this batch job 
-with `{{ site.sched_submit }}`. A few monuments later we will run the `squeue` command to check the 
+Once those changes have been made to `serial.qs`, save them. Then submit this batch job 
+with `{{ site.sched_submit }}`. A few moments later we will run the `squeue` command to check the 
 status of the batch job.
 
  ~~~~
@@ -171,12 +169,13 @@ After the jobs completes we will look at the output which will be found in the f
  ~~~~
  {: .language-bash}
 
-This script provides use with some information about what the script did and the resources that it required. We see that it used 1 core which is expected for serial jobs. We also set
-that the job used less than 1GB of memory (RAM). That lastly  we see the job ran in about 
-1/3 of a second, and the error was found to be ~0.0081%. 
+This script provides users with some information about what the script did and the resources that 
+it required. We see that it used 1 core which is expected for serial jobs. We also see that the 
+job used less than 1GB of memory (RAM). Lastly, we see the job ran in about 1/3 of a second,
+and the error was found to be ~0.0081%. 
 
-We are going to run this jobs 2 more times with each run increasing the amount of points in
-the program. As the amount of points increase we will see that the script will require more
+We are going to run this job 2 more times with each run increasing the number of points in
+the program. As the amount of points increases, we will see that the script will require more
 RAM. To prevent errors we will have to make a couple updates to the `serial.qs` batch script. 
 
 
@@ -193,7 +192,7 @@ RAM. To prevent errors we will have to make a couple updates to the `serial.qs` 
 
 After making the above changes to the  `serial.qs` script we can submit the `{{ site.sched_submit }}` script
 and run it. Like we did before we can use `squeue` to check the job status, otherwise we 
-will wait about 30 seconds for the job to complete. Once the job completes we will view
+will wait about 30 seconds for the job to complete. Once the job completes, we will view
 the output.
 
  ~~~~
@@ -205,9 +204,9 @@ the output.
  ~~~~
  {: .language-bash}
 
-This time we can see the jobs a few seconds to get through all the additional points, and the that it require ~2GB of RAM. 
+This time we can see the job takes a few seconds to get through all the additional points, and it requires ~2GB of RAM. 
 
-Lets run this jobs this with over a __trillion__ points and see what happens. To do this we will have make a couple more edits to the `serial.qs` script.
+Let's run this job with over a __trillion__ points and see what happens. To do this we will have to make a couple more edits to the `serial.qs` script.
  ~~~~
  ... Many lines later... 
   22 # SBATCH --mem=50G
@@ -222,7 +221,7 @@ Lets run this jobs this with over a __trillion__ points and see what happens. To
 Again, after making the above changes to the  `serial.qs` script we can submit the 
 `{{ site.sched_submit }}` script and run it. Like we did before we can use `squeue` to check the job 
 status, otherwise we will wait about 60-90 seconds for the job to complete. Once the 
-job completes we will view the output.
+job completes, we will view the output.
 
  ~~~~
  {{ site.host_short_prompt}} serial]$ cat serial-1178850.out 
@@ -233,7 +232,7 @@ job completes we will view the output.
  ~~~~
  {: .language-bash}
 
-This time we can see script took much longer, about 70 seconds, and took __A LOT__ more RAM, about 32GB. 
+This time we can see the script took much longer, about 70 seconds, and took __A LOT__ more RAM, about 32GB. 
 
 > ## Do you have enough RAM?
 >
@@ -242,15 +241,15 @@ This time we can see script took much longer, about 70 seconds, and took __A LOT
 > script and take a look at the jobs output.
 {: .discussion}
 
-Now that we are comfortable with the serial jobs, lets see if we can improve the speed of 
+Now that we are comfortable with the serial jobs, let's see if we can improve the speed of 
 the job and the resources it uses.
 
 ## Multi-Processing Job
 Multiprocessing or multithreaded jobs like serial jobs run on one compute node. They differ in the
-fact the multiprocessing jobs can run on one more more cores. In this section we will look at a 
+fact the multiprocessing jobs can run on multiple cores. In this section we will look at a 
 modified version of the piMulti.py which is set up to run on multiple cores. 
 
-Before we start at the code lets set up a new work directory to work in. 
+Before we start at the code let's set up a new work directory to work in. 
 ~~~~
  {{ site.host_short_prompt}} lesson-files]$ mkdir multiprocessing
  {{ site.host_short_prompt}} lesson-files]$ cp pi-serial.py multiprocessing/piMulti.py
@@ -267,7 +266,7 @@ it with nano so we can make some edits.
  ~~~~
  {: .language-bash}
 
- After nano starts we are going to change the following lines.
+ After nano starts, we are going to change the following lines.
  ~~~~
  ... Many lines later...
  18 # [EDIT] Indicate the number of processor cores/threads to be used
@@ -314,7 +313,7 @@ it with nano so we can make some edits.
  ~~~~
  {: .language-bash}
 Once those changes have been made to `threads.qs`, save them and submit it as a batch job with
-`{{ site.sched_submit }}`. A few minutes later we will run the `squeue` command to check the status of the batch job.
+`{{ site.sched_submit }}`. A few moments later we will run the `squeue` command to check the status of the batch job.
 ~~~~
  {{ site.host_short_prompt}} multiprocessing]$ {{ site.sched_submit }} threads.qs
 Submitted batch job 11811379
@@ -324,7 +323,7 @@ Submitted batch job 11811379
  ~~~~
  {: .language-bash}
 
- After the jobs completes we will look at the output which  will be found in
+ After the job completes, we will look at the output which  will be found in
  `cat pi_multi-11811379.out`. 
 ~~~~
   {{ site.host_short_prompt}} multiprocessing]$  cat pi_multi-11811379.out
@@ -373,20 +372,20 @@ But looking down at the last few lines we can see that the stats are pretty much
 first serial job that we submitted, but the run time was about 0.02 of a second faster than the
 serial job of the same amount of samples. Lets see what happens when we increase the samples 
 two more times like we did for the serial script. To do this we will need to increase 
-the memory to `--mem-per-cpus=12G` and `--mem-per-cpus=50G`and the pythons calls 
+the memory to `--mem-per-cpus=12G` and `--mem-per-cpus=50G`and calls the scripts with 
 `python3 piMulti.py 81652028` and `python3 piMulti.py 1431652028`. 
 
-After looking at the output of the other two jobs we see that again that the jobs complete faster
-than the serial jobs. This is because `piMulti.py` script break up the amount of n_samples so the
-calculations of the `inside_circle` function is divided equally on 10 cores. As we can see this 
+After looking at the output of the other two jobs, we see that the jobs complete faster
+than the serial jobs. This is because `piMulti.py` script breaks up the amount of n_samples so the
+calculations of the `inside_circle` function is divided equally on 10 cores. This 
 allows for faster results with similar errors. 
 
-> ## What if we change the amount of cpus-per-tasks?
+> ## What if we change the number of cpus-per-tasks?
 > 
-> What happens to the run time of the script when we increase of decrease the amount of cpus 
+> What happens to the run time of the script when we increase or decrease the amount of cpus 
 > we request when running this script?
-> Give it a try! Changes to the number of cores need to be changes in both `thread.qs` and 
-> `piMulti.py`.
+> Give it a try! Changes to the number of cores need to be changed in both `thread.qs` and 
+> `piMulti.py` files.
 {: .challenge}
 
 
@@ -407,7 +406,7 @@ this is a common tool on HPC systems.
 > An MPI instance typically has its own copy of all the local variables.
 {: .callout}
 
-Lets get started by setting up out work environment.
+Let's get started by setting up out work environment.
 ~~~~
  {{ site.host_short_prompt}} lesson-files]$ mkdir mpi
  {{ site.host_short_prompt}} lesson-files]$ cp pi-mpi.py mpi/pi-mpi.py
@@ -449,7 +448,7 @@ MPI jobs cannot generally be run as stand-alone executables. Instead, they shoul
 started with the `mpirun` command, which ensures that the appropriate run-time support for
 parallelism is included.
 
-To help optimize MPI jobs on the {{ site.host_name }} cluster IT maintains a template jobs script, 
+To help optimize MPI jobs on the {{ site.host_name }} cluster IT-RCI maintains a template jobs script, 
 like the `serial.qs` and `threads.qs` for mpi jobs. Use the following directions to
 get a copy of `openmpi.qs`.
 
@@ -459,10 +458,10 @@ get a copy of `openmpi.qs`.
  ~~~~
  {: .language-bash}
 
-You will notice that the `openmpi.qs` starts with a lot of commented notes and the slurm commands.
+You will notice that the `openmpi.qs` starts with a lot of commented notes and slurm commands.
 As with `serial.qs` and `thread.qs` it is important that you take the time to read them so you get
 a complete understanding what `openmpi.qs` is able to do. Towards the bottom of the `openmpi.qs` 
-you notice that the `mpirun` command is different from what you would see on most of the HPC
+you notice that the `mpirun` command is different from what you would see on most other HPC
 systems. 
 
 **{{ site.host_location }}'s way of running MPI scripts**
@@ -479,7 +478,7 @@ mpi_rc=$?
 ~~~~~
 {: .language-bash}
 
- **More Commonly HPC way of running MPI scripts**
+ **More commonly used HPC way of running MPI scripts**
 ~~~~
 -l nodes=2:ppn=5:mem=100G
 
@@ -505,7 +504,7 @@ program to minimize its memory footprint. Rather than push our local machines to
 breaking point (or, worse, the login node), let's give it to a cluster node with more
 resources. 
 
-Lets modifyy the submission file, requesting more than one task on a 2 nodes node:
+Let's modify the submission file, requesting more than one task to run on a 2 nodes:
 
 ```
 {{ site.host_short_prompt}} mpi]$ nano openmpi.qs
@@ -596,9 +595,10 @@ output file, and examine it. Is it what you expected?
 * How good is the value for &#960;?
 * How much memory did it need?
 * How much of that memory was used on each node?
-> ## What if we change the amount of nodes or ntasks?
+
+> ## What if we change the number of nodes or ntasks?
 > 
-> What happens to the run time of the script when we increase of decrease the amount of nodes or ntasks 
+> What happens to the run time of the script when we increase of decrease the number of nodes or ntasks 
 > we request when running this script?
 > Give it a try! Changes to the number of cores need to be changes in both `openmpi.qs` and 
 > `pi-mpi.py`.

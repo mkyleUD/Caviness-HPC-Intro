@@ -23,20 +23,20 @@ keypoints:
 ## What is an HPC system?
 
 The words "cloud", "cluster", and "high-performance computing" are used a lot in different contexts
-and with varying degrees of correctness. So what do they mean exactly? And more importantly, how do
+and with varying degrees of correctness. So, what do they mean exactly? And more importantly, how do
 we use them for our work?
 
 The *cloud* is a generic term commonly used to refer to remote computing resources of any kind --
 that is, any computers that you use but are not right in front of you. Cloud can refer to
-machines serving websites, providing shared storage, providing webservices (such as e-mail or social
+machines serving websites, providing shared storage, providing web services (such as e-mail or social
 media platforms), as well as more traditional "compute" resources. An *HPC system* on the other hand,
 is a term used to describe a network of computers. The computers in a cluster typically share a common
-purpose, and are used to accomplish tasks that might otherwise be too big for any one computer.
+purpose and are used to accomplish tasks that might otherwise be too big for any one computer.
 
-## Caviness Cluster compared to the other clusters at UD and other HPC systems.
+## Caviness Cluster compared to other clusters at UD and other HPC systems.
 
 The workload management software on Caviness is slurm. This is a common workload management 
-software for HPC systems but it is new to UD. The prior two community clusters used grid 
+software for HPC systems, but it is new to UD. The prior two community clusters used grid 
 engine for their workload manager. For setting up your computing environment Caviness will 
 continue to use VALET, just as Mills and Farber have used. VALET is a recursive acronym for VALET
 Automates Linux Environment Tasks – is an alternative that strives to be as simple as possible to

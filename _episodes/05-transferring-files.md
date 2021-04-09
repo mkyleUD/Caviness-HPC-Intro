@@ -35,13 +35,13 @@ lesson sample files using the following command:
 To copy a single file to or from the cluster, we can use `scp`. The syntax can be a little complex
 for new users, but we'll break it down here:
 
-To transfer *to* another computer:
+To transfer from your local machine *to* another computer:
 ```
 {{ site.local_prompt }} scp /path/to/local/file.txt {{ site.host_id }}@{{ site.host_login }}:/path/on/remote/computer
 ```
 {: .bash}
 
-To download *from* another computer:
+To download *from* another computer to your local machine:
 ```
 {{ site.local_prompt }} scp {{ site.host_id }}@{{ site.host_login }}:/path/on/remote/computer/file.txt /path/to/local/
 ```

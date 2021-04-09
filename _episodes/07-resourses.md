@@ -35,7 +35,7 @@ your job may not run even though enough resources are available, because the sch
 waiting to match what you asked for.
 
 ## Benchmarking `pi-serial.py`
-Lets to a look at the three serial-jobs that we submitted in the last lesson. 
+Let's to a look at the three serial-jobs that we submitted in the last lesson. 
 
 ```
 {{site.host_workgroup_prompt}} cd /lesson-files/serial
@@ -74,7 +74,7 @@ get statistics about our job.
 {: .output}
 
 This shows the 3 different pi-serial.py jobs we ran recently (note that there are multiple entries 
-per job). To get detailed info about a job, we change command slightly.
+per job). To get detailed info about a job, we change commands slightly.
 
 ```
 {{site.host_short_prompt}}serial]$ {{ site.sched_hist }} -l -j 11788448,11788449,11788450
@@ -101,7 +101,7 @@ Some interesting fields include the following:
 
 Even with outputting this information to `less` this is still pretty difficult to read. To make it 
 easier we can format out the output. To do this will first use the `--helpformat` option to see the 
-field we can format the output to. Then we will use the `--format` option with a comma separated
+fields we can format the output to. Then we will use the `--format` option with a comma separated
 list of the fields we would like to see.
 
 ```
@@ -139,7 +139,7 @@ user,jobname,jobid,node,maxrss,elapsed,state,maxdiskread,maxdiskwrite,avecpufreq
 ## Measuring the statistics of currently running tasks
 
 > ## Connecting to Nodes
-> The {{ site.host_name}}, cluster allow users to connect directly to compute nodes that they are
+> The {{ site.host_name}} cluster allows users to connect directly to compute nodes that they are
 > currently running jobs on. This is done from the head node and allow user to better inspect on 
 > a running job and see how it's doing, but is not  a recommended practice in general, 
 > because it bypasses the resource manager. If you need to do this, check where a job is 
