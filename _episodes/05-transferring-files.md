@@ -26,9 +26,10 @@ The syntax is: `wget https://some/link/to/a/file.tar.gz`. For example, download 
 lesson sample files using the following command:
 
 ```
-{{ site.host_prompt }} wget {{ site.url }}{{ site.baseurl }}/files/bash-lesson.tar.gz
+{{ site.host_prompt }} wget {{ site.url }}{{ site.baseurl }}/files/lesson-files
+.tar.gz
 ```
-{: .bash}
+{: .language-bash}
 
 ## Transferring single files and folders with scp
 
@@ -39,13 +40,13 @@ To transfer from your local machine *to* another computer:
 ```
 {{ site.local_prompt }} scp /path/to/local/file.txt {{ site.host_id }}@{{ site.host_login }}:/path/on/remote/computer
 ```
-{: .bash}
+{: .language-bash}
 
 To download *from* another computer to your local machine:
 ```
 {{ site.local_prompt }} scp {{ site.host_id }}@{{ site.host_login }}:/path/on/remote/computer/file.txt /path/to/local/
 ```
-{: .bash}
+{: .language-bash}
 
 Note that we can simplify doing this by shortening our paths. On the remote computer, everything
 after the `:` is relative to our home directory. We can simply just add a `:` and leave it at that
@@ -54,14 +55,14 @@ if we don't care where the file goes.
 ```
 {{ site.local_prompt }} scp local-file.txt {{ site.host_id }}@{{ site.host_login }}:
 ```
-{: .bash}
+{: .language-bash}
 
 To recursively copy a directory, we just add the `-r` (recursive) flag:
 
 ```
 {{ site.local_prompt }} scp -r some-local-folder/ {{ site.host_id }}@{{ site.host_login }}:target-directory/
 ```
-{: .bash}
+{: .language-bash}
 
 > ## A note on rsync
 >
@@ -74,7 +75,7 @@ To recursively copy a directory, we just add the `-r` (recursive) flag:
 > ```
 > {{ site.local_prompt }}$ rsync -avzP /path/to/local/file.txt {{ site.host_id }}@{{ site.host_login }}:/path/on/remote/computer
 > ```
-> {: .bash}
+> {: .language-bash}
 >
 > The `a` (archive) option preserves file timestamps and permissions among other things; the `v` (verbose)
 > option gives verbose output to help monitor the transfer; the `z` (compression) option compresses
@@ -86,7 +87,7 @@ To recursively copy a directory, we just add the `-r` (recursive) flag:
 > ```
 > {{ site.local_prompt }}$ rsync -avzP /path/to/local/dir {{ site.host_id }}@{{ site.host_login }}:/path/on/remote/computer
 > ```
-> {: .bash}
+> {: .language-bash}
 > 
 > The `a` (archive) option implies recursion.
 > 
@@ -94,7 +95,7 @@ To recursively copy a directory, we just add the `-r` (recursive) flag:
 > ```
 > {{ site.local_prompt }}$ rsync -avzP yourUsername@remote.computer.address:/path/on/remote/computer/file.txt /path/to/local/
 > ```
-> {: .bash}
+> {: .language-bash}
 {: .callout}
 
 ## Transferring files interactively with WinSCP (sftp)
@@ -120,6 +121,12 @@ Hit "Quickconnect" to connect! You should see your remote files appear on the ri
 screen. You can drag-and-drop files between the left (local) and right (remote) sides of the screen
 to transfer files.
 
+> ## Transferring files
+>
+> Using one of the above methods, try transferring files to and from the cluster. Which method do
+> you like the best?
+{: .challenge}
+
 ## Archiving files
 
 One of the biggest challenges we often face when transferring data between remote HPC systems
@@ -139,7 +146,7 @@ all files contained inside `output_data` into an archive file called `output_dat
 ```
 {{ site.local_prompt }} tar -cvf output_data.tar output_data/
 ```
-{: .bash}
+{: .language-bash}
 
 The options we used for `tar` are:
 
@@ -152,7 +159,7 @@ The tar command allows users to concatenate flags. Instead of typing `tar -c -v 
 ```
 {{ site.local_prompt }} tar -xvf output_data.tar
 ```
-{: .bash}
+{: .language-bash}
 
 This will put the data into a directory called `output_data`. Be careful, it will overwrite data there if this
 directory already exists!
@@ -166,7 +173,7 @@ it is compressed, e.g.:
 ```
 {{ site.local_prompt }} tar -czvf output_data.tar.gz output_data/
 ```
-{: .bash}
+{: .language-bash}
 
 The `tar` command is used to extract the files from the archive in exactly the same way as for
 uncompressed data as `tar` recognizes it is compressed and un-compresses and extracts at the 
@@ -175,12 +182,17 @@ same time:
 ```
 {{ site.local_prompt }} tar -xvf output_data.tar.gz
 ```
-{: .bash}
+{: .language-bash}
 
-> ## Transferring files
+> ## Extract the lesson-files.tar.gz
 >
-> Using one of the above methods, try transferring files to and from the cluster. Which method do
-> you like the best?
+> Using what we just learned to extract or decompress the contents of the `lesson-files.tar.gz`.
+>>## Solution
+>> ```
+>> tar -xvf lesson-files.tar.gz
+>> ```
+>> {: .language-bash}
+>{: .solution}
 {: .challenge}
 
 > ## Working with Windows

@@ -1,5 +1,5 @@
 ---
-title: "Getting Help"
+title: "Getting Help And Staying Up to Date"
 teaching: 5
 exercises: 0
 questions:
@@ -19,22 +19,18 @@ keypoints:
 
 
 ## {{ site.host_location }}'s HPC Wiki
+The [HPC Documentation Wiki](https://docs.hpc.udel.edu/) provides details of IT-supported hardware and software environments, instructions and tutorials on their use, and their organizational and administrative structure for the IT Research Computing community clusters
 
-The login node is often very busy managing lots of users logged in, creating and editing files
-and compiling software! It doesn’t have any extra space to run computational work.
 
-Don’t run jobs on the login node (though quick tests are generally fine). A “quick test” is
-generally anything that uses less than 5 minutes of time. If you
-use too much resource then other users on the login node will start to be affected - their
-login sessions will start to run slowly and may even freeze or hang. 
+## Submit a help desk ticket
 
-> ## Login nodes are a shared resource
->
-> Remember, the login node is shared with all other users and your actions could cause
-> issues for other people. Think carefully about the potential implications of issuing
-> commands that may use large amounts of resource.
->
-{: .callout}
+If our online resources do not contain an answer to your question, then you can submit a help desk
+ticket. This can be done in one of two ways. You can visit 
+[UD's Service Portal](https://blog.trustedci.org/2021/04/trusted-ci-webinar-arizona-states.html )
+and submit a "Research Computing Help Request". Alternatively you can email `askit@udel.edu`. 
+That email be generate a help desk ticket automatically. There is a slight delay in when the RCI 
+team receives that ticket, since the email is sent to the general IT help desk, who will than 
+reassign it to IT-RCI.
 
 ## Google Groups
 {{site.host_location}}'s IT-RCI team has created several Google Groups. These groups are 
@@ -43,18 +39,20 @@ can be about training or answering questions. They groups can also be used by {{
 users to discuss and help each other with problem they are having.
 
 ### `hpc-ask` Group
-The `hpc-ask` google groups is there for all community cluster users to request help about an issue
-they might be having. We encourage anyone in the community who might have an answer to a posted help
-request to share their answer. If a help request goes unanswered a member of the IT-RCI team will try
-answer it. 
+The [`hpc-ask` Google group](https://groups.google.com/a/udel.edu/g/hpc-ask) is there for all community
+cluster users to ask questions, start discussions and share an upcoming event with the
+community We encourage anyone in the community who might have an answer to a posted help 
+request to share their answer. If a help request goes unanswered a member of the IT-RCI 
+team will try answer it. 
 
 ### `{{ site.host_name }}-Users` Group
-The `{{site.host_name}}` 
+The [`{{site.host_name}}` Google group](https://groups.google.com/a/udel.edu/g/caviness-users) is there for
+all {{ site.host_name}} users to discuss and ask questions about the {{ site.host_name }} cluster. The 
+IT-RCI team will post about on training events, and important information about maintenance windows, and 
+systems downtimes. Users can ask {{ site.host_name}} specific questions here as well. 
 
-## Email `askit@udel.edu`
-For question about adding software packages, software updates, and account related questions, IT created the `askit@udel.edu` email account. Any question sent to that email address will be screened
-and than a ticket will be created. From there all HPC related tickets are assigned to the IT-RCI team. 
-After that, the best person will respond and address the ticket. 
+
+
 
 
 

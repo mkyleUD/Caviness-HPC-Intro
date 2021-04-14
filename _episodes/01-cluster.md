@@ -82,7 +82,7 @@ notice that the current hostname is also part of our prompt)
 {: .language-bash}
 
 ```
-{{ site.host_name }}
+login00
 ```
 {: .output}
 
@@ -121,7 +121,7 @@ is shown below.
 
 There are also specialized machines used for managing disk storage, user authentication, and other
 infrastructure-related tasks. Although we do not typically logon to or interact with these machines
-directly, they enable a number of key features like ensuring our user account and files are
+directly, they enable serval key features like ensuring our user account and files are
 available throughout the HPC system.
 
 > ## Shared file systems
